@@ -502,7 +502,7 @@ lists.forEach((l, li) => {
     items += `<label class="cl-item" for="${id}"><input type="checkbox" id="${id}" data-l="${li}"><span class="cl-label"><span class="tag">${it.d}</span> ${it.t}</span></label>`;
   });
   const isMkt = l.title.includes('마케팅 Phase');
-  const planBtn = isMkt ? `<a class="cl-plan-btn" href="Marketing_Calendar_04_11.html" target="_blank">기획보기</a>` : '';
+  const planBtn = isMkt ? `<a class="cl-plan-btn" href="Victor_Forelise_Marketing_04.html" target="_blank">기획보기</a>` : '';
   card.innerHTML = `
     <div class="cl-head"><div class="cl-title" style="color:${l.color}">${l.title}<span class="cl-owner">${l.owner}</span>${planBtn}</div><div class="cl-count" id="cnt${li}">0/${l.items.length}</div></div>
     <div class="cl-bar-bg"><div class="cl-bar-fill" id="bar${li}" style="background:${l.color}"></div></div>
