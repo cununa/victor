@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rhythm Action Game — Monthly Release</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #ffffff;
+    --surface: #f8f8f8;
+    --border: #e8e8e8;
+    --text: #1a1a1a;
+    --sub: #888;
+    --muted: #bbb;
+    --accent: #c8a24e;
+    --red: #d94040;
+    --green: #2d9d5c;
+    --blue: #3a7bd5;
+    --pink: #c45c8a;
+    --orange: #d48a2c;
+    --purple: #7c5cbf;
+    --r: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+
+  .header { padding: 48px 40px 40px; border-bottom: 1px solid var(--border); }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+  }
+  .header h1 { font-size: 1.8em; font-weight: 800; letter-spacing: -0.5px; }
+  .header h1 span { color: var(--accent); }
+  .header-sub { font-size: 0.88em; color: var(--sub); margin-top: 4px; }
+  .release-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--text); color: #fff;
+    padding: 8px 16px; border-radius: 6px;
+    font-size: 0.78em; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    border-radius: var(--r); overflow: hidden; margin-bottom: 40px;
+  }
+  .stat { background: var(--bg); padding: 24px 20px; text-align: center; }
+  .stat-num { font-size: 2em; font-weight: 800; letter-spacing: -1px; }
+  .stat-label { font-size: 0.78em; color: var(--sub); margin-top: 2px; }
+  .stat:nth-child(1) .stat-num { color: var(--accent); }
+  .stat:nth-child(2) .stat-num { color: var(--pink); }
+  .stat:nth-child(3) .stat-num { color: var(--red); }
+  .stat:nth-child(4) .stat-num { color: var(--green); }
+
+  .section { margin-bottom: 40px; }
+  .section-head { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .section-head h2 { font-size: 1.1em; font-weight: 700; }
+  .badge {
+    font-size: 0.7em; font-weight: 600; color: var(--sub);
+    background: var(--surface); padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border);
+  }
+
+  /* Deliverables */
+  .del-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .del-card { background: var(--surface); border-radius: var(--r); padding: 18px 14px; text-align: center; }
+  .del-icon { font-size: 1.5em; margin-bottom: 6px; }
+  .del-name { font-size: 0.82em; font-weight: 600; margin-bottom: 2px; }
+  .del-desc { font-size: 0.72em; color: var(--sub); line-height: 1.4; }
+
+  /* Pipeline Phases */
+  .pipe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .pipe-card {
+    border: 1px solid var(--border); border-radius: var(--r); padding: 20px;
+    transition: box-shadow 0.2s;
+  }
+  .pipe-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .pipe-num { font-size: 0.65em; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .pipe-title { font-size: 0.95em; font-weight: 700; margin-bottom: 2px; }
+  .pipe-days { font-size: 0.78em; color: var(--sub); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .pipe-list { list-style: none; font-size: 0.8em; }
+  .pipe-list li { padding: 3px 0; color: #555; }
+  .pipe-list li::before { content: '—'; margin-right: 6px; color: var(--muted); }
+  .pipe-note { font-size: 0.75em; color: var(--sub); margin-top: 10px; font-style: italic; }
+
+  /* Marketing 3-Phase */
+  .mkt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .mkt-card {
+    border: 1px solid var(--border); border-radius: var(--r); padding: 22px;
+    position: relative; overflow: hidden;
+  }
+  .mkt-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .mkt-card:nth-child(1)::before { background: var(--orange); }
+  .mkt-card:nth-child(2)::before { background: var(--red); }
+  .mkt-card:nth-child(3)::before { background: var(--accent); }
+  .mkt-phase { font-size: 0.65em; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .mkt-title { font-size: 1em; font-weight: 700; margin: 4px 0 2px; }
+  .mkt-card:nth-child(1) .mkt-title { color: var(--orange); }
+  .mkt-card:nth-child(2) .mkt-title { color: var(--red); }
+  .mkt-card:nth-child(3) .mkt-title { color: var(--accent); }
+  .mkt-period { font-size: 0.78em; color: var(--sub); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .mkt-desc { font-size: 0.82em; color: #555; line-height: 1.7; }
+  .mkt-list { list-style: none; font-size: 0.82em; margin-top: 8px; }
+  .mkt-list li { padding: 3px 0; color: #555; }
+  .mkt-list li::before { content: '→'; margin-right: 6px; color: var(--muted); }
+
+  /* Gantt */
+  .gantt-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r); }
+  .gantt { width: 100%; border-collapse: collapse; font-size: 0.72em; min-width: 1050px; }
+  .gantt th {
+    background: var(--surface); padding: 8px 2px; text-align: center;
+    font-weight: 600; color: var(--sub); border-bottom: 1px solid var(--border);
+    min-width: 24px;
+  }
+  .gantt th.task-col { width: 180px; min-width: 180px; text-align: left; padding-left: 14px; }
+  .gantt td { padding: 4px 1px; text-align: center; border-bottom: 1px solid #f2f2f2; }
+  .gantt .task-cell {
+    text-align: left; padding-left: 14px; font-weight: 500; color: #444;
+    white-space: nowrap; background: #fefefe; border-right: 1px solid var(--border);
+    font-size: 1.05em;
+  }
+  .gantt .rc { background: #fef8f8 !important; }
+  .gantt .rc-h { background: #fef0f0 !important; color: var(--red) !important; font-weight: 700 !important; }
+  .gantt .sep { border-left: 1px solid #ddd; }
+
+  .g-bar { height: 14px; border-radius: 3px; margin: 0 0px; }
+  .g-bar.plan { background: #999; }
+  .g-bar.music { background: var(--accent); }
+  .g-bar.art-e { background: var(--pink); opacity: 0.6; }
+  .g-bar.art-n { background: var(--pink); opacity: 0.8; }
+  .g-bar.art-h { background: var(--pink); }
+  .g-bar.dev { background: var(--green); }
+  .g-bar.video { background: var(--red); }
+  .g-bar.qa { background: var(--blue); }
+  .g-bar.mkt-a { background: var(--orange); }
+  .g-bar.mkt-b { background: var(--red); opacity: 0.7; }
+  .g-bar.mkt-c { background: var(--accent); opacity: 0.7; }
+  .g-bar.ship { background: var(--text); }
+  .g-bar.release { background: var(--red); }
+
+  /* Worker Tags in Gantt */
+  .gantt .worker { font-size: 0.85em; color: var(--sub); font-weight: 400; }
+
+  /* Checklist */
+  .cl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .cl-card { border: 1px solid var(--border); border-radius: var(--r); padding: 20px; transition: box-shadow 0.2s; }
+  .cl-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+  .cl-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .cl-title { font-size: 0.92em; font-weight: 700; }
+  .cl-owner {
+    font-size: 0.72em; font-weight: 600; color: var(--sub);
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 2px 8px; border-radius: 10px; margin-left: 8px;
+  }
+  .cl-count { font-size: 0.75em; color: var(--muted); font-weight: 500; }
+  .cl-plan-btn {
+    font-size: 0.7em; font-weight: 600; color: var(--orange);
+    background: #fff8f0; border: 1px solid var(--orange);
+    padding: 2px 10px; border-radius: 10px; cursor: pointer;
+    text-decoration: none; transition: all 0.15s; margin-left: 6px;
+  }
+  .cl-plan-btn:hover { background: var(--orange); color: #fff; }
+  .cl-bar-bg { height: 3px; background: var(--surface); border-radius: 2px; margin-bottom: 14px; overflow: hidden; }
+  .cl-bar-fill { height: 100%; border-radius: 2px; width: 0%; transition: width 0.3s; }
+  .cl-item { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; cursor: pointer; user-select: none; }
+  .cl-item input[type="checkbox"] {
+    appearance: none; width: 16px; height: 16px; min-width: 16px;
+    border: 1.5px solid #ccc; border-radius: 3px; margin-top: 3px;
+    cursor: pointer; position: relative; transition: all 0.15s; background: #fff;
+  }
+  .cl-item input:checked { background: var(--text); border-color: var(--text); }
+  .cl-item input:checked::after { content: '✓'; position: absolute; top: -1px; left: 2px; color: #fff; font-size: 11px; font-weight: 700; }
+  .cl-item.done .cl-label { text-decoration: line-through; color: var(--muted); }
+  .cl-label { font-size: 0.82em; color: #555; line-height: 1.5; }
+  .cl-label .tag { display: inline-block; font-size: 0.82em; font-weight: 600; color: var(--sub); margin-right: 4px; }
+
+  /* Deadlines */
+  .dl-wrap { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+  .dl-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+  .dl-table th { background: var(--surface); text-align: left; padding: 12px 16px; font-weight: 600; color: var(--sub); font-size: 0.9em; border-bottom: 1px solid var(--border); }
+  .dl-table td { padding: 12px 16px; border-bottom: 1px solid #f4f4f4; color: #555; }
+  .dl-table tr:last-child td { border-bottom: none; }
+  .dl-table .day { font-weight: 700; color: var(--text); white-space: nowrap; }
+  .dl-table .crit td { background: #fef8f8; }
+  .dl-table .crit .day { color: var(--red); }
+  .dl-table .ct { color: var(--red); font-weight: 600; }
+
+  .footer { text-align: center; padding: 24px; font-size: 0.75em; color: var(--muted); border-top: 1px solid var(--border); margin-top: 20px; }
+
+  @media (max-width: 900px) {
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .pipe-grid { grid-template-columns: 1fr; }
+    .mkt-grid { grid-template-columns: 1fr; }
+    .cl-grid { grid-template-columns: 1fr; }
+    .del-grid { grid-template-columns: repeat(3, 1fr); }
+    .container { padding: 24px 20px 40px; }
+    .header { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>Rhythm Action <span>Game</span></h1>
+      <div class="header-sub">월간 챕터 발매 루틴 — 스케줄 & 체크리스트</div>
+    </div>
+    <div class="release-tag">RELEASE &nbsp;매월 13일 &nbsp;/&nbsp; FRIDAY THE 13TH</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Songs</div></div>
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Illustrations</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Music Videos</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-label">Game Update</div></div>
+  </div>
+
+  <!-- Deliverables -->
+  <div class="section">
+    <div class="section-head"><h2>산출물</h2><span class="badge">Monthly Output</span></div>
+    <div class="del-grid">
+      <div class="del-card"><div class="del-icon">🎵</div><div class="del-name">음원 4곡</div><div class="del-desc">작사작곡<br>글로벌 유통</div></div>
+      <div class="del-card"><div class="del-icon">🖼</div><div class="del-name">SD 일러 4장</div><div class="del-desc">Easy<br>귀여운 SD</div></div>
+      <div class="del-card"><div class="del-icon">🎨</div><div class="del-name">상반신 4장</div><div class="del-desc">Normal<br>얼굴 + 상반신</div></div>
+      <div class="del-card"><div class="del-icon">🌟</div><div class="del-name">풀씬 4장</div><div class="del-desc">Hard<br>전체 일러스트</div></div>
+      <div class="del-card"><div class="del-icon">▶️</div><div class="del-name">MV 4편</div><div class="del-desc">풀씬 + 음원<br>유튜브 공개</div></div>
+      <div class="del-card"><div class="del-icon">🎮</div><div class="del-name">챕터 업데이트</div><div class="del-desc">노트 + 수집<br>스토리 해금</div></div>
+    </div>
+  </div>
+
+  <!-- Production Pipeline -->
+  <div class="section">
+    <div class="section-head"><h2>프로덕션 파이프라인</h2><span class="badge">병렬 진행 / 작업자 분리</span></div>
+    <div class="pipe-grid">
+      <div class="pipe-card" style="border-top: 3px solid #999;">
+        <div class="pipe-num">앞단</div>
+        <div class="pipe-title" style="color:#555;">기획 + 작곡</div>
+        <div class="pipe-days">1일 — 5일</div>
+        <ul class="pipe-list">
+          <li>챕터 테마 & 스토리 방향 확정</li>
+          <li>작사 / 작곡 4곡</li>
+          <li>일러스트 컨셉 & 레퍼런스 전달</li>
+          <li>리듬 패턴 기획 초안</li>
+          <li>마케팅 캘린더 기획</li>
+        </ul>
+        <div class="pipe-note">* 기획 + 작곡이 끝나야 뒷단 시작</div>
+      </div>
+      <div class="pipe-card" style="border-top: 3px solid var(--pink);">
+        <div class="pipe-num">일러스트 (3팀 병렬)</div>
+        <div class="pipe-title" style="color:var(--pink);">Easy / Normal / Hard</div>
+        <div class="pipe-days">5일 — 20일 (작업자별 상이)</div>
+        <ul class="pipe-list">
+          <li>Easy(SD) 4장 — 5~10일</li>
+          <li>Normal(상반신) 4장 — 5~20일</li>
+          <li>Hard(풀씬) 4장 — 5~20일</li>
+        </ul>
+        <div class="pipe-note">* 3명 작업자 동시 병렬 진행<br>* Hard 풀씬이 제일 공수 큼</div>
+      </div>
+      <div class="pipe-card" style="border-top: 3px solid var(--green);">
+        <div class="pipe-num">후속</div>
+        <div class="pipe-title" style="color:var(--green);">개발 / 영상 / 유통</div>
+        <div class="pipe-days">에셋 도착 순 ~ 말일</div>
+        <ul class="pipe-list">
+          <li>노트 배치 — 작곡 완료 후 시작</li>
+          <li>MV 사전작업 — 기타 리소스 1~20일</li>
+          <li>MV 편집 — 하드 일러 도착 후 21~25일</li>
+          <li>게임 통합 & QA — 21~25일</li>
+          <li>음원 유통 이메일 — 26~30일</li>
+        </ul>
+        <div class="pipe-note">* 하드 일러가 MV & 게임 빌드의 블로커</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Marketing 3 Phases -->
+  <div class="section">
+    <div class="section-head"><h2>마케팅 전략</h2><span class="badge">3-Phase / 매월 반복</span></div>
+    <div class="mkt-grid">
+      <div class="mkt-card">
+        <div class="mkt-phase">Phase A</div>
+        <div class="mkt-title">사전 광고</div>
+        <div class="mkt-period">매월 1일 — 12일 (발매 전)</div>
+        <div class="mkt-desc">기대감 형성 & 떡밥 투하</div>
+        <ul class="mkt-list">
+          <li>티저 이미지 (SD 일러 일부 공개)</li>
+          <li>음원 하이라이트 15초 쇼츠</li>
+          <li>캐릭터/스토리 힌트 드롭</li>
+          <li>카운트다운 콘텐츠</li>
+          <li>사전 알림 신청 유도</li>
+        </ul>
+      </div>
+      <div class="mkt-card">
+        <div class="mkt-phase">Phase B</div>
+        <div class="mkt-title">발매 후 광고</div>
+        <div class="mkt-period">매월 13일 — 22일 (발매 직후)</div>
+        <div class="mkt-desc">폭발적 노출 & 확산</div>
+        <ul class="mkt-list">
+          <li>MV 풀 공개 & 음원 발매 알림</li>
+          <li>게임 업데이트 공지</li>
+          <li>풀씬 일러스트 순차 공개</li>
+          <li>플레이 영상 / 리액션 콘텐츠</li>
+          <li>리뷰 & 커뮤니티 바이럴</li>
+        </ul>
+      </div>
+      <div class="mkt-card">
+        <div class="mkt-phase">Phase C</div>
+        <div class="mkt-title">이벤트</div>
+        <div class="mkt-period">매월 23일 — 말일</div>
+        <div class="mkt-desc">참여 유도 & 리텐션</div>
+        <ul class="mkt-list">
+          <li>인게임 이벤트 (한정 보상)</li>
+          <li>팬아트 / 2차 창작 이벤트</li>
+          <li>SNS 챌린지 / 해시태그</li>
+          <li>다음 챕터 떡밥 (→ Phase A)</li>
+          <li>커뮤니티 투표 & 설문</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gantt Chart (30 days) -->
+  <div class="section">
+    <div class="section-head"><h2>월간 간트 차트</h2><span class="badge">Calendar Day 1 — 30</span></div>
+    <div class="gantt-wrap">
+      <table class="gantt" id="ganttTable">
+        <thead><tr id="ganttHead"></tr></thead>
+        <tbody id="ganttBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <div class="section">
+    <div class="section-head"><h2>체크리스트</h2><span class="badge" id="totalProgress">0 / 0</span></div>
+    <div class="cl-grid" id="clGrid"></div>
+  </div>
+
+  <!-- Deadlines -->
+  <div class="section">
+    <div class="section-head"><h2>핵심 데드라인</h2><span class="badge">Must Not Miss</span></div>
+    <div class="dl-wrap">
+      <table class="dl-table">
+        <thead><tr><th style="width:100px;">날짜</th><th>Deadline</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td class="day">5일</td><td>기획 + 작곡 완료</td><td>일러/개발/영상 착수 가능 조건</td></tr>
+          <tr><td class="day">10일</td><td>Easy(SD) 일러 4장 완료</td><td>사전 광고 티저 소재 확보</td></tr>
+          <tr class="crit"><td class="day">13일</td><td class="ct">발매일 — 음원 + 게임 + MV 동시</td><td class="ct">매월 고정 릴리즈</td></tr>
+          <tr><td class="day">20일</td><td>Normal + Hard 일러 납품 마감</td><td>MV 편집 & 게임 빌드 블로커</td></tr>
+          <tr><td class="day">22일</td><td>Phase B → C 전환</td><td>발매 후 광고 종료, 이벤트 시작</td></tr>
+          <tr><td class="day">21-25일</td><td>MV 편집 + 게임 통합 & QA 완료</td><td>하드 일러 도착 후 집중 마무리</td></tr>
+          <tr class="crit"><td class="day">26-30일</td><td class="ct">음원 유통 이메일 (익월분)</td><td class="ct">주말 대비, 익월 13일까지 2주+ 확보</td></tr>
+          <tr><td class="day">말일</td><td>이벤트 종료 & 다음 챕터 준비</td><td>Phase C → 다음 달 Phase A 연결</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Rhythm Action Game — Monthly Release Pipeline &middot; v5.2</div>
+
+<script>
+const DAYS = 30;
+const RD = 13;
+
+// Gantt Header
+const head = document.getElementById('ganttHead');
+let hh = '<th class="task-col">Task</th>';
+for (let d = 1; d <= DAYS; d++) {
+  const cls = d === RD ? 'rc-h' : (d % 7 === 0 ? 'sep' : '');
+  hh += `<th class="${cls}">${d}</th>`;
+}
+head.innerHTML = hh;
+
+// Gantt Data - realistic timeline
+const ganttData = [
+  { name: '기획 & 방향 설정', cls: 'plan', s: 1, e: 3 },
+  { name: '작사작곡 4곡', cls: 'music', s: 1, e: 5 },
+  { name: 'Easy(SD) 일러 4장', cls: 'art-e', s: 5, e: 10 },
+  { name: 'Normal(상반신) 일러 4장', cls: 'art-n', s: 5, e: 20 },
+  { name: 'Hard(풀씬) 일러 4장', cls: 'art-h', s: 5, e: 20 },
+  { name: '노트 배치 & 개발', cls: 'dev', s: 5, e: 12 },
+  { name: 'MV 사전작업 (기타 리소스)', cls: 'video', s: 1, e: 20 },
+  { name: 'MV 편집 (하드 일러)', cls: 'video', s: 21, e: 25 },
+  { name: '게임 데이터 통합 & QA', cls: 'qa', s: 21, e: 25 },
+  { name: '발매일', cls: 'release', s: 13, e: 13 },
+  { name: '사전 광고 (Phase A)', cls: 'mkt-a', s: 1, e: 12 },
+  { name: '발매 후 광고 (Phase B)', cls: 'mkt-b', s: 13, e: 22 },
+  { name: '이벤트 (Phase C)', cls: 'mkt-c', s: 23, e: 30 },
+  { name: '음원 유통 이메일', cls: 'ship', s: 26, e: 30 },
+];
+
+const gb = document.getElementById('ganttBody');
+ganttData.forEach(r => {
+  const tr = document.createElement('tr');
+  let h = `<td class="task-cell">${r.name}</td>`;
+  for (let d = 1; d <= DAYS; d++) {
+    const rc = d === RD ? ' rc' : '';
+    h += d >= r.s && d <= r.e
+      ? `<td class="${rc}"><div class="g-bar ${r.cls}"></div></td>`
+      : `<td class="${rc}"></td>`;
+  }
+  tr.innerHTML = h;
+  gb.appendChild(tr);
+});
+
+// Checklists
+const lists = [
+  { title: '기획 + 작곡', owner: 'Kelly', color: 'var(--accent)', items: [
+    { d: '1일', t: '챕터 테마 & 스토리 방향 확정' },
+    { d: '1-2일', t: '일러스트 컨셉 & 레퍼런스 정리' },
+    { d: '1-3일', t: '작사 / 작곡 4곡 진행' },
+    { d: '3-4일', t: '데모 피드백 & 수정' },
+    { d: '5일', t: '최종 음원 파일 확정 & 전달' },
+    { d: '1-3일', t: '마케팅 캘린더 기획' },
+  ]},
+  { title: 'Easy(SD) 일러스트', owner: 'Hailay', color: 'var(--pink)', items: [
+    { d: '5일', t: '러프 스케치 4장' },
+    { d: '5-7일', t: '라인아트 + 채색' },
+    { d: '8-9일', t: '보정 & 피드백 반영' },
+    { d: '10일', t: '최종 납품 (사전 광고 소재 활용)' },
+  ]},
+  { title: 'Normal(상반신) 일러스트', owner: 'Hyun', color: 'var(--pink)', items: [
+    { d: '5-6일', t: '러프 스케치 4장' },
+    { d: '7-14일', t: '라인아트 + 채색 (4장)' },
+    { d: '15-18일', t: '보정 & 피드백 반영' },
+    { d: '20일', t: '최종 납품' },
+  ]},
+  { title: 'Hard(풀씬) 일러스트', owner: 'Hyun', color: 'var(--pink)', items: [
+    { d: '5-6일', t: '러프 스케치 4장' },
+    { d: '7-15일', t: '라인아트 4장' },
+    { d: '15-19일', t: '채색 & 최종 보정' },
+    { d: '20일', t: '최종 납품 (MV 편집 착수 가능)' },
+  ]},
+  { title: '게임 개발', owner: 'Godon', color: 'var(--green)', items: [
+    { d: '5-7일', t: '노트 패턴 기획 & 배치 (4곡 x 3)' },
+    { d: '7-10일', t: '수집/구매 시스템 데이터 반영' },
+    { d: '8-12일', t: '스토리 모드 해금 구현' },
+    { d: '21-23일', t: '게임 데이터 통합 (일러 반영)' },
+    { d: '23-25일', t: 'QA 테스트 & 버그 수정' },
+    { d: '25일', t: '스토어 빌드 제출' },
+  ]},
+  { title: '영상 & 유통', owner: 'Cass', color: 'var(--red)', items: [
+    { d: '1-20일', t: 'MV 사전작업 (기타 리소스 준비)' },
+    { d: '21-23일', t: 'MV 편집 4편 (하드 일러 합체)' },
+    { d: '23-24일', t: '썸네일 4장 제작' },
+    { d: '24-25일', t: '유튜브 예약 업로드 & 메타 세팅' },
+    { d: '26-30일', t: '익월분 음원 유통 이메일 발송' },
+  ]},
+  { title: '마케팅 Phase A — 사전 광고', owner: 'Joy', color: 'var(--orange)', items: [
+    { d: '1-3일', t: '마케팅 캘린더 & 콘텐츠 기획' },
+    { d: '5-7일', t: '티저 이미지 제작 (SD 일러 활용 가능)' },
+    { d: '7-9일', t: '음원 하이라이트 쇼츠' },
+    { d: '9-11일', t: '캐릭터/스토리 힌트 드롭' },
+    { d: '11-12일', t: '카운트다운 & 사전 알림' },
+  ]},
+  { title: '마케팅 Phase B — 발매 후 광고', owner: 'Joy', color: 'var(--red)', items: [
+    { d: '13일', t: '발매 알림 — 전 채널 동시 포스팅' },
+    { d: '14-16일', t: '풀씬 일러스트 순차 공개' },
+    { d: '16-19일', t: '플레이 영상 & 리액션 콘텐츠' },
+    { d: '19-22일', t: '리뷰 & 커뮤니티 바이럴' },
+  ]},
+  { title: '마케팅 Phase C — 이벤트', owner: 'Joy', color: 'var(--accent)', items: [
+    { d: '23-24일', t: '인게임 이벤트 오픈 (한정 보상)' },
+    { d: '24-26일', t: '팬아트 / SNS 챌린지' },
+    { d: '27-29일', t: '커뮤니티 투표 & 설문' },
+    { d: '29-말일', t: '다음 챕터 떡밥 (→ Phase A)' },
+  ]},
+  { title: '발매 & 점검', owner: 'Rex', color: 'var(--text)', items: [
+    { d: '13일', t: '발매! 플랫폼 라이브 확인 & 모니터링' },
+    { d: '25일', t: 'MV + 게임 빌드 최종 확인' },
+    { d: '26-30일', t: '음원 유통 이메일 발송 확인' },
+    { d: '말일', t: '월간 리뷰 & 다음 달 준비' },
+  ]},
+];
+
+let totalItems = 0;
+lists.forEach(l => totalItems += l.items.length);
+
+const grid = document.getElementById('clGrid');
+lists.forEach((l, li) => {
+  const card = document.createElement('div');
+  card.className = 'cl-card';
+  let items = '';
+  l.items.forEach((it, ii) => {
+    const id = `c${li}_${ii}`;
+    items += `<label class="cl-item" for="${id}"><input type="checkbox" id="${id}" data-l="${li}"><span class="cl-label"><span class="tag">${it.d}</span> ${it.t}</span></label>`;
+  });
+  const isMkt = l.title.includes('마케팅 Phase');
+  const planBtn = isMkt ? `<a class="cl-plan-btn" href="Marketing_Calendar_04_11.html" target="_blank">기획보기</a>` : '';
+  card.innerHTML = `
+    <div class="cl-head"><div class="cl-title" style="color:${l.color}">${l.title}<span class="cl-owner">${l.owner}</span>${planBtn}</div><div class="cl-count" id="cnt${li}">0/${l.items.length}</div></div>
+    <div class="cl-bar-bg"><div class="cl-bar-fill" id="bar${li}" style="background:${l.color}"></div></div>
+    ${items}`;
+  grid.appendChild(card);
+});
+
+document.getElementById('totalProgress').textContent = `0 / ${totalItems}`;
+
+function updateAll() {
+  let total = 0;
+  lists.forEach((l, li) => {
+    const n = l.items.length;
+    const c = document.querySelectorAll(`input[data-l="${li}"]:checked`).length;
+    total += c;
+    document.getElementById(`cnt${li}`).textContent = `${c}/${n}`;
+    document.getElementById(`bar${li}`).style.width = `${(c/n)*100}%`;
+  });
+  document.getElementById('totalProgress').textContent = `${total} / ${totalItems}`;
+}
+
+document.querySelectorAll('.cl-item input').forEach(cb => {
+  cb.addEventListener('change', function() {
+    this.closest('.cl-item').classList.toggle('done', this.checked);
+    updateAll();
+  });
+});
+</script>
+</body>
+</html>

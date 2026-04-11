@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book of Victor — Monthly Instagram Marketing Calendar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #ffffff;
+    --surface: #f8f8f8;
+    --border: #e8e8e8;
+    --text: #1a1a1a;
+    --sub: #888;
+    --muted: #bbb;
+    --accent: #c8a24e;
+    --red: #d94040;
+    --green: #2d9d5c;
+    --blue: #3a7bd5;
+    --pink: #c45c8a;
+    --orange: #d48a2c;
+    --purple: #7c5cbf;
+    --r: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+
+  .lang-bar {
+    display: flex; justify-content: flex-end; gap: 4px;
+    max-width: 1200px; margin: 0 auto;
+    padding: 16px 40px 0;
+  }
+  .lang-btn {
+    padding: 6px 16px; border: 1px solid var(--border); border-radius: 6px;
+    font-size: 0.78em; font-weight: 600; cursor: pointer;
+    background: var(--bg); color: var(--sub);
+    transition: all 0.15s;
+  }
+  .lang-btn:hover { background: var(--surface); }
+  .lang-btn.active {
+    background: var(--text); color: #fff; border-color: var(--text);
+  }
+
+  .header { padding: 24px 40px 40px; border-bottom: 1px solid var(--border); }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+  }
+  .header h1 { font-size: 1.8em; font-weight: 800; letter-spacing: -0.5px; }
+  .header h1 span { color: var(--accent); }
+  .header-sub { font-size: 0.88em; color: var(--sub); margin-top: 4px; }
+  .release-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--text); color: #fff;
+    padding: 8px 16px; border-radius: 6px;
+    font-size: 0.78em; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
+
+  .section { margin-bottom: 48px; }
+  .section-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .section-head h2 { font-size: 1.15em; font-weight: 700; }
+  .badge {
+    font-size: 0.7em; font-weight: 600; color: #fff;
+    padding: 3px 12px; border-radius: 20px;
+  }
+  .badge-a { background: var(--orange); }
+  .badge-b { background: var(--red); }
+  .badge-c { background: var(--accent); }
+  .badge-neutral { background: var(--sub); }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    border-radius: var(--r); overflow: hidden; margin-bottom: 40px;
+  }
+  .stat { background: var(--bg); padding: 24px 20px; text-align: center; }
+  .stat-num { font-size: 2em; font-weight: 800; letter-spacing: -1px; }
+  .stat-label { font-size: 0.78em; color: var(--sub); margin-top: 2px; }
+
+  .overview-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-bottom: 48px;
+  }
+  .ov-card {
+    border: 1px solid var(--border); border-radius: var(--r); padding: 24px;
+    position: relative; overflow: hidden;
+  }
+  .ov-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .ov-card:nth-child(1)::before { background: var(--orange); }
+  .ov-card:nth-child(2)::before { background: var(--red); }
+  .ov-card:nth-child(3)::before { background: var(--accent); }
+  .ov-phase { font-size: 0.65em; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .ov-title { font-size: 1.05em; font-weight: 700; margin: 4px 0 2px; }
+  .ov-card:nth-child(1) .ov-title { color: var(--orange); }
+  .ov-card:nth-child(2) .ov-title { color: var(--red); }
+  .ov-card:nth-child(3) .ov-title { color: var(--accent); }
+  .ov-period { font-size: 0.78em; color: var(--sub); margin-bottom: 10px; }
+  .ov-posts { font-size: 0.85em; color: #555; }
+  .ov-posts strong { color: var(--text); }
+
+  .week-block {
+    border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .week-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+  }
+  .week-header:hover { background: #f2f2f2; }
+  .week-label { font-size: 0.9em; font-weight: 700; }
+  .week-meta { font-size: 0.78em; color: var(--sub); display: flex; align-items: center; gap: 8px; }
+  .week-phase-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .week-arrow { font-size: 0.8em; color: var(--muted); transition: transform 0.2s; }
+  .week-block.open .week-arrow { transform: rotate(180deg); }
+  .week-content { display: none; }
+  .week-block.open .week-content { display: block; }
+
+  .post-row {
+    display: grid; grid-template-columns: 80px 1fr;
+    border-bottom: 1px solid #f4f4f4;
+  }
+  .post-row:last-child { border-bottom: none; }
+  .post-day {
+    padding: 20px 16px;
+    font-size: 0.82em; font-weight: 600; color: var(--sub);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .post-day .date { font-size: 1.2em; color: var(--text); font-weight: 700; }
+
+  .post-card {
+    padding: 20px;
+    display: grid; grid-template-columns: 56px 1fr; gap: 14px;
+    align-items: start;
+  }
+  .post-type-tag {
+    font-size: 0.68em; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; text-align: center;
+    padding: 5px 0; border-radius: 4px; color: #fff;
+  }
+  .tag-feed { background: var(--pink); }
+  .tag-reel { background: var(--blue); }
+  .tag-carousel { background: var(--green); }
+  .tag-event { background: var(--accent); }
+
+  .post-card h4 { font-size: 0.9em; font-weight: 600; margin-bottom: 4px; }
+  .post-desc { font-size: 0.8em; color: #555; line-height: 1.6; }
+  .post-hashtag { font-size: 0.72em; color: var(--blue); margin-top: 6px; }
+  .post-asset { font-size: 0.72em; color: var(--sub); margin-top: 4px; }
+  .post-asset span { font-weight: 600; color: var(--text); }
+
+  .post-row.release-day { background: #fef8f8; }
+  .post-row.release-day .post-day { color: var(--red); }
+  .post-row.release-day .date { color: var(--red); }
+
+  .sum-wrap { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+  .sum-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+  .sum-table th {
+    background: var(--surface); text-align: left; padding: 12px 16px;
+    font-weight: 600; color: var(--sub); border-bottom: 1px solid var(--border);
+  }
+  .sum-table td { padding: 12px 16px; border-bottom: 1px solid #f4f4f4; color: #555; }
+  .sum-table tr:last-child td { border-bottom: none; }
+  .sum-table .hl { font-weight: 600; color: var(--text); }
+  .sum-table .ct { color: var(--red); font-weight: 600; }
+
+  .tip-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tip-card { border: 1px solid var(--border); border-radius: var(--r); padding: 20px; }
+  .tip-title { font-size: 0.9em; font-weight: 700; margin-bottom: 8px; }
+  .tip-body { font-size: 0.82em; color: #555; line-height: 1.7; }
+
+  .footer {
+    text-align: center; padding: 24px; font-size: 0.75em; color: var(--muted);
+    border-top: 1px solid var(--border); margin-top: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .lang-bar { padding: 12px 20px 0; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .overview-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .tip-grid { grid-template-columns: 1fr; }
+    .container { padding: 24px 20px 40px; }
+    .header { padding: 16px 20px 32px; }
+    .post-row { grid-template-columns: 60px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('ko')">한국어</button>
+  <button class="lang-btn" onclick="setLang('vi')">Tiếng Việt</button>
+  <button class="lang-btn" onclick="setLang('en')">English</button>
+</div>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>Instagram <span>Marketing</span> Calendar</h1>
+      <div class="header-sub" data-i18n="headerSub"></div>
+    </div>
+    <div class="release-tag" data-i18n="releaseTag"></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num" style="color:var(--text)">4</div><div class="stat-label" data-i18n="statWeeks"></div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--orange)">2</div><div class="stat-label" data-i18n="statPerWeek"></div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--red)">8</div><div class="stat-label" data-i18n="statTotal"></div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--accent)">13</div><div class="stat-label" data-i18n="statRelease"></div></div>
+  </div>
+
+  <div class="overview-grid">
+    <div class="ov-card">
+      <div class="ov-phase">Phase A</div>
+      <div class="ov-title" data-i18n="phaseATitle"></div>
+      <div class="ov-period" data-i18n="phaseAPeriod"></div>
+      <div class="ov-posts" data-i18n="phaseAPosts"></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-phase">Phase B</div>
+      <div class="ov-title" data-i18n="phaseBTitle"></div>
+      <div class="ov-period" data-i18n="phaseBPeriod"></div>
+      <div class="ov-posts" data-i18n="phaseBPosts"></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-phase">Phase C</div>
+      <div class="ov-title" data-i18n="phaseCTitle"></div>
+      <div class="ov-period" data-i18n="phaseCPeriod"></div>
+      <div class="ov-posts" data-i18n="phaseCPosts"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2 data-i18n="secA"></h2>
+      <span class="badge badge-a">Week 1-2 / 4</span>
+    </div>
+
+    <div class="week-block open">
+      <div class="week-header" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <span class="week-label">Week 1</span>
+          <span class="week-meta"><span class="week-phase-dot" style="background:var(--orange)"></span><span data-i18n="w1meta"></span></span>
+        </div>
+        <span class="week-arrow">&#9660;</span>
+      </div>
+      <div class="week-content">
+        <div class="post-row">
+          <div class="post-day"><div class="date" data-i18n="d1"></div><div data-i18n="d1dow"></div></div>
+          <div class="post-card">
+            <div><div class="post-type-tag tag-carousel" data-i18n="tagCarousel"></div></div>
+            <div>
+              <h4 data-i18n="w1p1Title"></h4>
+              <div class="post-desc" data-i18n="w1p1Desc"></div>
+              <div class="post-hashtag">#BookOfVictor #ComingSoon</div>
+              <div class="post-asset"><span data-i18n="w1p1Asset"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="post-row">
+          <div class="post-day"><div class="date" data-i18n="d4"></div><div data-i18n="d4dow"></div></div>
+          <div class="post-card">
+            <div><div class="post-type-tag tag-reel" data-i18n="tagReel"></div></div>
+            <div>
+              <h4 data-i18n="w1p2Title"></h4>
+              <div class="post-desc" data-i18n="w1p2Desc"></div>
+              <div class="post-hashtag">#BookOfVictor #Lore #Recap</div>
+              <div class="post-asset"><span data-i18n="w1p2Asset"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block open">
+      <div class="week-header" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <span class="week-label">Week 2</span>
+          <span class="week-meta"><span class="week-phase-dot" style="background:var(--orange)"></span><span data-i18n="w2meta"></span></span>
+        </div>
+        <span class="week-arrow">&#9660;</span>
+      </div>
+      <div class="week-content">
+        <div class="post-row">
+          <div class="post-day"><div class="date" data-i18n="d8"></div><div data-i18n="d8dow"></div></div>
+          <div class="post-card">
+            <div><div class="post-type-tag tag-reel" data-i18n="tagReel"></div></div>
+            <div>
+              <h4 data-i18n="w2p1Title"></h4>
+              <div class="post-desc" data-i18n="w2p1Desc"></div>
+              <div class="post-hashtag">#BookOfVictor #OST #NewTrack</div>
+              <div class="post-asset"><span data-i18n="w2p1Asset"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="post-row">
+          <div class="post-day"><div class="date" data-i18n="d12"></div><div data-i18n="d12dow"></div></div>
+          <div class="post-card">
+            <div><div class="post-type-tag tag-feed" data-i18n="tagFeed"></div></div>
+            <div>
+              <h4 data-i18n="w2p2Title"></h4>
+              <div class="post-desc" data-i18n="w2p2Desc"></div>
+              <div class="post-hashtag">#BookOfVictor #Tomorrow #D1</div>
+              <div class="post-asset"><span data-i18n="w2p2Asset"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2 data-i18n="secB"></h2>
+      <span class="badge badge-b">Week 3 / 2</span>
+    </div>
+    <div class="week-block open">
+      <div class="week-header" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <span class="week-label">Week 3</span>
+          <span class="week-meta"><span class="week-phase-dot" style="background:var(--red)"></span><span data-i18n="w3meta"></span></span>
+        </div>
+        <span class="week-arrow">&#9660;</span>
+      </div>
+      <div class="week-content">
+        <div class="post-row release-day">
+          <div class="post-day"><div class="date" data-i18n="d13"></div><div data-i18n="d13dow"></div></div>
+          <div class="post-card">
+            <div><div class="post-type-tag tag-carousel" data-i18n="tagCarousel"></div></div>
+            <div>
+              <h4 data-i18n="w3p1Title"></h4>
+              <div class="post-desc" data-i18n="w3p1Desc"></div>
+              <div class="post-hashtag">#BookOfVictor #OutNow #Release</div>
+              <div class="post-asset"><span data-i18n="w3p1Asset"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="post-row">
+          <div class="post-day"><div class="date" data-i18n="d17"></div><div data-i18n="d17dow"></div></div>
+          <div class="post-card">
+            <div><div class="post-type-tag tag-reel" data-i18n="tagReel"></div></div>
+            <div>
+              <h4 data-i18n="w3p2Title"></h4>
+              <div class="post-desc" data-i18n="w3p2Desc"></div>
+              <div class="post-hashtag">#BookOfVictor #MV #GamePlay</div>
+              <div class="post-asset"><span data-i18n="w3p2Asset"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2 data-i18n="secC"></h2>
+      <span class="badge badge-c">Week 4 / 2</span>
+    </div>
+    <div class="week-block open">
+      <div class="week-header" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <span class="week-label">Week 4</span>
+          <span class="week-meta"><span class="week-phase-dot" style="background:var(--accent)"></span><span data-i18n="w4meta"></span></span>
+        </div>
+        <span class="week-arrow">&#9660;</span>
+      </div>
+      <div class="week-content">
+        <div class="post-row">
+          <div class="post-day"><div class="date" data-i18n="d22"></div><div data-i18n="d22dow"></div></div>
+          <div class="post-card">
+            <div><div class="post-type-tag tag-event" data-i18n="tagEvent"></div></div>
+            <div>
+              <h4 data-i18n="w4p1Title"></h4>
+              <div class="post-desc" data-i18n="w4p1Desc"></div>
+              <div class="post-hashtag">#BookOfVictor #Event #Challenge</div>
+              <div class="post-asset"><span data-i18n="w4p1Asset"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="post-row">
+          <div class="post-day"><div class="date" data-i18n="d28"></div><div data-i18n="d28dow"></div></div>
+          <div class="post-card">
+            <div><div class="post-type-tag tag-feed" data-i18n="tagFeed"></div></div>
+            <div>
+              <h4 data-i18n="w4p2Title"></h4>
+              <div class="post-desc" data-i18n="w4p2Desc"></div>
+              <div class="post-hashtag">#BookOfVictor #NextChapter #ComingSoon</div>
+              <div class="post-asset"><span data-i18n="w4p2Asset"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="summarySection"></div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2 data-i18n="secBank"></h2>
+      <span class="badge badge-neutral" data-i18n="bankBadge"></span>
+    </div>
+    <div class="tip-grid" id="tipGrid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2 data-i18n="secTiming"></h2>
+      <span class="badge badge-neutral" data-i18n="timingBadge"></span>
+    </div>
+    <div class="sum-wrap" id="timingTable"></div>
+  </div>
+
+</div>
+
+<div class="footer">Book of Victor — Instagram Marketing Calendar v3.0 / bookofvictor.world</div>
+
+<script>
+const T = {
+  ko: {
+    headerSub: 'bookofvictor.world — 월간 인스타그램 콘텐츠 플랜',
+    releaseTag: 'RELEASE DAY 매월 13일 / 월 8회 게시',
+    statWeeks: '주', statPerWeek: '회 / 주', statTotal: '총 게시물 / 월', statRelease: '발매일',
+    phaseATitle: '사전 광고', phaseAPeriod: '1일 — 12일 (2주)', phaseAPosts: '<strong>4회</strong> 게시 — 기대감 형성, 티저, 카운트다운',
+    phaseBTitle: '발매 후 광고', phaseBPeriod: '13일 — 19일 (1주)', phaseBPosts: '<strong>2회</strong> 게시 — 발매 알림, 콘텐츠 확산',
+    phaseCTitle: '부스트 이벤트', phaseCPeriod: '20일 — 말일 (1주+)', phaseCPosts: '<strong>2회</strong> 게시 — 참여 이벤트, 다음 달 연결',
+    secA: 'Phase A — 사전 광고', secB: 'Phase B — 발매 후 광고', secC: 'Phase C — 부스트 이벤트',
+    tagCarousel: '캐러셀', tagReel: '릴스', tagFeed: '피드', tagEvent: '이벤트',
+    w1meta: '1일 — 6일 / 2회', w2meta: '7일 — 12일 / 2회', w3meta: '13일 — 19일 / 2회', w4meta: '20일 — 말일 / 2회',
+    d1: '1일', d1dow: '월', d4: '4일', d4dow: '목', d8: '8일', d8dow: '월', d12: '12일', d12dow: '금',
+    d13: '13일', d13dow: '발매일', d17: '17일', d17dow: '화', d22: '22일', d22dow: '월', d28: '28일', d28dow: '월',
+    w1p1Title: '"Chapter __ is coming" 티저 캐러셀 (3칸)',
+    w1p1Desc: '1칸: 챕터 번호 + 분위기 컬러 타이포<br>2칸: 이번 챕터 키워드 3개 (예: "배신", "폭풍", "약속")<br>3칸: "매월 13일, 새로운 페이지가 열립니다" + bookofvictor.world',
+    w1p1Asset: '소재: 타이포 + 컬러 그래픽 (일러 없이 제작 가능)',
+    w1p2Title: '"세계관 60초" — 이전 챕터 요약 릴스',
+    w1p2Desc: '지난 챕터 스토리를 60초 요약 (기존 일러 슬라이드 + 자막 + BGM)<br>마지막에 "그리고 다음 페이지는..." 으로 끊기<br>신규 유입자에게 세계관 맥락 전달 + 기존 팬 복습',
+    w1p2Asset: '소재: 기존 일러 + 음원 (재활용, 신규 제작 불필요)',
+    w2p1Title: '음원 하이라이트 15초 — 신곡 티저',
+    w2p1Desc: '이번 챕터 곡 중 가장 임팩트 있는 15초 + 파형 비주얼<br>SD 일러 모션 (줌인/줌아웃) 합성 가능<br>"풀 버전은 13일에" 자막',
+    w2p1Asset: '소재: 작곡 완료 음원 (5일~) + SD 일러 (10일 완성)',
+    w2p2Title: '"TOMORROW" — D-1 카운트다운',
+    w2p2Desc: 'SD 일러 4장 모아서 한 컷 + 곡 제목 4개 리스트<br>"내일, 모든 게 열립니다" 한 줄 카피<br>발매 전 마지막 푸시 — 가장 기대감 높은 타이밍',
+    w2p2Asset: '소재: SD 일러 4장 조합 + 타이포',
+    w3p1Title: '"OUT NOW" 발매 공지 캐러셀 (3칸)',
+    w3p1Desc: '1칸: 챕터 메인 키비주얼 + "OUT NOW"<br>2칸: 음원 스트리밍 링크 + 게임 다운로드 링크<br>3칸: MV 유튜브 링크 + "지금 바로 들어보세요"<br>음원 / 게임 / MV 동시 발매 — 전 채널 원샷',
+    w3p1Asset: '소재: 키비주얼 + 링크 그래픽',
+    w3p2Title: 'MV 하이라이트 + 풀씬 일러 공개 릴스',
+    w3p2Desc: 'MV 베스트 구간 30초 + 풀씬 일러 슬라이드 조합<br>또는 게임 플레이 하이라이트 (Hard 난이도 클리어 영상)<br>"어떤 곡이 최애?" 댓글 유도',
+    w3p2Asset: '소재: MV 영상 클립 + Hard 풀씬 일러',
+    w4p1Title: '부스트 이벤트 오픈 — 참여형 콘텐츠',
+    w4p1Desc: '아래 중 매달 1가지 선택해서 진행:<br><br><strong>A. 팬아트 챌린지</strong> — 해시태그 참여, 당선자 리포스트 + 인게임 보상<br><strong>B. 퍼펙트 챌린지</strong> — 특정 구간 퍼펙트 영상 공유, 리포스트<br><strong>C. 최애곡 토너먼트</strong> — 4곡 대결 투표 (캐러셀로 진행)<br><strong>D. 인게임 한정 이벤트</strong> — 기간 한정 보상 획득 안내',
+    w4p1Asset: '소재: 이벤트 배너 그래픽 (템플릿 재활용 가능)',
+    w4p2Title: '"다음 페이지로..." — Next Chapter 떡밥',
+    w4p2Desc: '다음 챕터 분위기를 암시하는 미니멀 이미지 1장<br>컬러 + 한 단어 키워드만 — 구체적 정보 없이 여운만<br>다음 달 1일 Phase A 첫 포스트로 자연스럽게 연결',
+    w4p2Asset: '소재: 컬러 그래픽 + 타이포 (간단 제작)',
+    secSummary: '월간 요약', summaryBadge: '8회 / 월',
+    sumHead: ['주차','Phase','기간','게시물','콘텐츠'],
+    sumRows: [
+      ['Week 1','A 사전 광고','1일 — 6일','2회','챕터 티저 캐러셀 + 세계관 요약 릴스'],
+      ['Week 2','A 사전 광고','7일 — 12일','2회','음원 티저 릴스 + D-1 카운트다운 피드'],
+      ['Week 3','B 발매 후','13일 — 19일','2회','OUT NOW 캐러셀 + MV/플레이 릴스'],
+      ['Week 4','C 이벤트','20일 — 말일','2회','부스트 이벤트 + 다음 챕터 떡밥'],
+    ],
+    sumTotal: ['월 합계','','','8회','캐러셀 2 + 릴스 3 + 피드 2 + 이벤트 1'],
+    secBank: '콘텐츠 소재 뱅크', bankBadge: '돌려쓰기용',
+    tips: [
+      { title: 'Phase A 교체 가능 소재', color: 'var(--orange)', body: '<strong>실루엣 퀴즈</strong> — 캐릭터 실루엣만 공개, 맞추기<br><strong>컬러 팔레트 공개</strong> — 챕터 메인 4색 그라디언트<br><strong>대사 카드</strong> — 핵심 대사 1줄 타이포<br><strong>작업실 타임랩스</strong> — 작곡/그림 15초 과정<br><strong>음원 리버스</strong> — 곡 거꾸로 재생, "무슨 곡?"' },
+      { title: 'Phase B 교체 가능 소재', color: 'var(--red)', body: '<strong>난이도 비교</strong> — Easy/Normal/Hard 같은 곡 비교 릴스<br><strong>러프 vs 완성</strong> — 일러 Before/After 캐러셀<br><strong>숨은 떡밥 해설</strong> — MV 속 이스터에그 설명<br><strong>첫인상 리액션</strong> — 팀원/지인 리액션 촬영<br><strong>스토리 해금 힌트</strong> — 숨겨진 조건 암시' },
+      { title: 'Phase C 교체 가능 이벤트', color: 'var(--accent)', body: '<strong>팬아트 리포스트</strong> — 팬 작품 소개 + 작가 태그<br><strong>캐릭터 생일</strong> — 세계관 내 기념일 이벤트<br><strong>Q&amp;A</strong> — "세계관 궁금한 거 물어보세요" 답변<br><strong>커뮤니티 설문</strong> — 다음 챕터 방향 투표<br><strong>비하인드 캐러셀</strong> — 제작 과정 3칸 공개' },
+      { title: '항시 사용 — 빈칸 채우기', color: 'var(--text)', body: '<strong>명대사 시리즈</strong> — 역대 챕터 명대사 타이포<br><strong>캐릭터 프로필</strong> — MBTI, 취미, 성격 카드<br><strong>플레이리스트</strong> — "이 기분일 때 듣는 빅터 OST"<br><strong>숫자로 보는 빅터</strong> — 누적 곡 수, 캐릭터 수<br><strong>밈/짤</strong> — 캐릭터 기반 공감 콘텐츠' },
+    ],
+    secTiming: '소재 확보 타이밍', timingBadge: '프로덕션 연동',
+    timingHead: ['날짜','확보되는 소재','활용 가능한 포스트'],
+    timingRows: [
+      ['1일~','타이포, 컬러, 기존 일러','Week 1 전부 (신규 제작 없이 가능)'],
+      ['5일~','작곡 완료 음원','Week 2 음원 티저 릴스'],
+      ['10일','SD 일러 4장 완성','Week 2 D-1 피드 (SD 조합)'],
+      ['13일','음원 + MV + 게임 동시 발매','Week 3 OUT NOW 캐러셀'],
+      ['20일','풀씬 일러 전체 완성','Week 3 MV/풀씬 릴스'],
+      ['20일~','이벤트 그래픽 (템플릿)','Week 4 이벤트 + 떡밥'],
+    ],
+  },
+  vi: {
+    headerSub: 'bookofvictor.world — Kế hoạch nội dung Instagram hàng tháng',
+    releaseTag: 'NGÀY PHÁT HÀNH: 13 hàng tháng / 8 bài/tháng',
+    statWeeks: 'Tuần', statPerWeek: 'Bài / Tuần', statTotal: 'Tổng bài / Tháng', statRelease: 'Ngày phát hành',
+    phaseATitle: 'Quảng bá trước', phaseAPeriod: 'Ngày 1 — 12 (2 tuần)', phaseAPosts: '<strong>4 bài</strong> — Tạo kỳ vọng, teaser, đếm ngược',
+    phaseBTitle: 'Quảng bá sau phát hành', phaseBPeriod: 'Ngày 13 — 19 (1 tuần)', phaseBPosts: '<strong>2 bài</strong> — Thông báo phát hành, lan tỏa nội dung',
+    phaseCTitle: 'Sự kiện tăng tốc', phaseCPeriod: 'Ngày 20 — cuối tháng (1 tuần+)', phaseCPosts: '<strong>2 bài</strong> — Sự kiện tương tác, kết nối tháng sau',
+    secA: 'Phase A — Quảng bá trước phát hành', secB: 'Phase B — Quảng bá sau phát hành', secC: 'Phase C — Sự kiện tăng tốc',
+    tagCarousel: 'Carousel', tagReel: 'Reels', tagFeed: 'Feed', tagEvent: 'Event',
+    w1meta: 'Ngày 1 — 6 / 2 bài', w2meta: 'Ngày 7 — 12 / 2 bài', w3meta: 'Ngày 13 — 19 / 2 bài', w4meta: 'Ngày 20 — cuối tháng / 2 bài',
+    d1: 'Ngày 1', d1dow: 'T2', d4: 'Ngày 4', d4dow: 'T5', d8: 'Ngày 8', d8dow: 'T2', d12: 'Ngày 12', d12dow: 'T6',
+    d13: 'Ngày 13', d13dow: 'Phát hành', d17: 'Ngày 17', d17dow: 'T3', d22: 'Ngày 22', d22dow: 'T2', d28: 'Ngày 28', d28dow: 'T2',
+    w1p1Title: '"Chapter __ is coming" — Carousel teaser (3 ảnh)',
+    w1p1Desc: 'Ảnh 1: Số chương + màu sắc chủ đạo<br>Ảnh 2: 3 từ khóa chương (VD: "Phản bội", "Bão tố", "Lời hứa")<br>Ảnh 3: "Mỗi ngày 13, một trang mới mở ra" + bookofvictor.world',
+    w1p1Asset: 'Tài liệu: Typography + đồ họa màu (không cần minh họa)',
+    w1p2Title: '"60 giây thế giới quan" — Reels tóm tắt chương trước',
+    w1p2Desc: 'Tóm tắt 60 giây câu chuyện chương trước (slide minh họa cũ + phụ đề + BGM)<br>Kết thúc bằng "Và trang tiếp theo là..."<br>Giúp người mới hiểu bối cảnh + fan cũ ôn lại',
+    w1p2Asset: 'Tài liệu: Minh họa cũ + nhạc (tái sử dụng)',
+    w2p1Title: 'Highlight nhạc 15 giây — Teaser bài mới',
+    w2p1Desc: '15 giây ấn tượng nhất + hình ảnh sóng âm<br>Có thể kết hợp SD illustration (zoom in/out)<br>Phụ đề "Bản đầy đủ vào ngày 13"',
+    w2p1Asset: 'Tài liệu: Nhạc hoàn thành (từ ngày 5) + SD illustration (ngày 10)',
+    w2p2Title: '"TOMORROW" — Đếm ngược D-1',
+    w2p2Desc: '4 SD illustration ghép 1 khung + danh sách 4 bài hát<br>"Ngày mai, tất cả sẽ mở ra" — một dòng copy<br>Push cuối cùng trước phát hành',
+    w2p2Asset: 'Tài liệu: 4 SD illustration + typography',
+    w3p1Title: '"OUT NOW" — Carousel thông báo phát hành (3 ảnh)',
+    w3p1Desc: 'Ảnh 1: Key visual chương + "OUT NOW"<br>Ảnh 2: Link stream nhạc + link tải game<br>Ảnh 3: Link MV YouTube + "Nghe ngay"<br>Nhạc / Game / MV phát hành đồng thời',
+    w3p1Asset: 'Tài liệu: Key visual + đồ họa link',
+    w3p2Title: 'Reels highlight MV + minh họa full scene',
+    w3p2Desc: '30 giây MV hay nhất + slide minh họa full scene<br>Hoặc highlight gameplay (Hard mode)<br>"Bài nào là yêu thích nhất?" — khuyến khích comment',
+    w3p2Asset: 'Tài liệu: Clip MV + minh họa Hard full scene',
+    w4p1Title: 'Mở sự kiện tăng tốc — Nội dung tương tác',
+    w4p1Desc: 'Chọn 1 trong các hình thức mỗi tháng:<br><br><strong>A. Thử thách Fan Art</strong> — Tham gia hashtag, repost + thưởng in-game<br><strong>B. Thử thách Perfect</strong> — Chia sẻ video perfect đoạn khó<br><strong>C. Giải đấu bài hát yêu thích</strong> — Bình chọn 4 bài (carousel)<br><strong>D. Sự kiện in-game giới hạn</strong> — Phần thưởng có thời hạn',
+    w4p1Asset: 'Tài liệu: Banner sự kiện (có thể tái sử dụng template)',
+    w4p2Title: '"Trang tiếp theo..." — Gợi ý chương mới',
+    w4p2Desc: '1 hình ảnh tối giản gợi ý không khí chương tiếp<br>Chỉ màu sắc + 1 từ khóa — không tiết lộ cụ thể<br>Kết nối tự nhiên sang Phase A ngày 1 tháng sau',
+    w4p2Asset: 'Tài liệu: Đồ họa màu + typography (đơn giản)',
+    secSummary: 'Tóm tắt hàng tháng', summaryBadge: '8 bài / tháng',
+    sumHead: ['Tuần','Phase','Thời gian','Số bài','Nội dung'],
+    sumRows: [
+      ['Tuần 1','A Trước phát hành','Ngày 1 — 6','2 bài','Carousel teaser chương + Reels tóm tắt'],
+      ['Tuần 2','A Trước phát hành','Ngày 7 — 12','2 bài','Reels teaser nhạc + Feed đếm ngược D-1'],
+      ['Tuần 3','B Sau phát hành','Ngày 13 — 19','2 bài','Carousel OUT NOW + Reels MV/gameplay'],
+      ['Tuần 4','C Sự kiện','Ngày 20 — cuối','2 bài','Sự kiện tăng tốc + Gợi ý chương mới'],
+    ],
+    sumTotal: ['Tổng tháng','','','8 bài','Carousel 2 + Reels 3 + Feed 2 + Event 1'],
+    secBank: 'Ngân hàng nội dung', bankBadge: 'Tái sử dụng',
+    tips: [
+      { title: 'Phase A — Nội dung thay thế', color: 'var(--orange)', body: '<strong>Quiz hình bóng</strong> — Chỉ hiện silhouette nhân vật<br><strong>Bảng màu</strong> — 4 màu gradient chủ đạo<br><strong>Thẻ thoại</strong> — 1 câu thoại quan trọng typography<br><strong>Timelapse phòng làm việc</strong> — 15 giây quá trình sáng tác<br><strong>Nhạc ngược</strong> — Phát ngược bài hát, "Bài gì đây?"' },
+      { title: 'Phase B — Nội dung thay thế', color: 'var(--red)', body: '<strong>So sánh độ khó</strong> — Reels Easy/Normal/Hard cùng bài<br><strong>Phác thảo vs Hoàn thiện</strong> — Carousel Before/After<br><strong>Giải mã easter egg</strong> — Easter egg trong MV<br><strong>Phản ứng lần đầu</strong> — Quay phản ứng đồng đội<br><strong>Gợi ý mở khóa story</strong> — Ám chỉ điều kiện ẩn' },
+      { title: 'Phase C — Sự kiện thay thế', color: 'var(--accent)', body: '<strong>Repost fan art</strong> — Giới thiệu tác phẩm fan + tag<br><strong>Sinh nhật nhân vật</strong> — Sự kiện ngày kỷ niệm<br><strong>Q&amp;A</strong> — "Hỏi gì về thế giới quan cũng được"<br><strong>Khảo sát cộng đồng</strong> — Vote hướng đi chương mới<br><strong>Carousel hậu trường</strong> — 3 ảnh quá trình sản xuất' },
+      { title: 'Luôn dùng được — Lấp chỗ trống', color: 'var(--text)', body: '<strong>Series câu nói hay</strong> — Typography danh ngôn các chương<br><strong>Thẻ nhân vật</strong> — MBTI, sở thích, tính cách<br><strong>Playlist</strong> — "Nghe OST Victor khi tâm trạng này"<br><strong>Victor qua con số</strong> — Tổng số bài hát, nhân vật<br><strong>Meme</strong> — Nội dung đồng cảm dựa trên nhân vật' },
+    ],
+    secTiming: 'Thời điểm có tài liệu', timingBadge: 'Liên kết sản xuất',
+    timingHead: ['Ngày','Tài liệu sẵn có','Bài đăng có thể dùng'],
+    timingRows: [
+      ['Ngày 1~','Typography, màu sắc, minh họa cũ','Tuần 1 toàn bộ (không cần tạo mới)'],
+      ['Ngày 5~','Nhạc hoàn thành','Tuần 2 Reels teaser nhạc'],
+      ['Ngày 10','4 SD illustration hoàn thành','Tuần 2 Feed D-1 (ghép SD)'],
+      ['Ngày 13','Nhạc + MV + Game phát hành đồng thời','Tuần 3 Carousel OUT NOW'],
+      ['Ngày 20','Full scene illustration hoàn thành','Tuần 3 Reels MV/full scene'],
+      ['Ngày 20~','Đồ họa sự kiện (template)','Tuần 4 Sự kiện + gợi ý'],
+    ],
+  },
+  en: {
+    headerSub: 'bookofvictor.world — Monthly Instagram Content Plan',
+    releaseTag: 'RELEASE DAY: 13th Monthly / 8 Posts per Month',
+    statWeeks: 'Weeks', statPerWeek: 'Posts / Week', statTotal: 'Total Posts / Month', statRelease: 'Release Day',
+    phaseATitle: 'Pre-Launch', phaseAPeriod: 'Day 1 — 12 (2 weeks)', phaseAPosts: '<strong>4 posts</strong> — Build anticipation, teasers, countdown',
+    phaseBTitle: 'Post-Launch', phaseBPeriod: 'Day 13 — 19 (1 week)', phaseBPosts: '<strong>2 posts</strong> — Release announcement, content spread',
+    phaseCTitle: 'Boost Event', phaseCPeriod: 'Day 20 — End of month (1 week+)', phaseCPosts: '<strong>2 posts</strong> — Engagement event, next month teaser',
+    secA: 'Phase A — Pre-Launch Promotion', secB: 'Phase B — Post-Launch Promotion', secC: 'Phase C — Boost Event',
+    tagCarousel: 'Carousel', tagReel: 'Reels', tagFeed: 'Feed', tagEvent: 'Event',
+    w1meta: 'Day 1 — 6 / 2 posts', w2meta: 'Day 7 — 12 / 2 posts', w3meta: 'Day 13 — 19 / 2 posts', w4meta: 'Day 20 — End / 2 posts',
+    d1: 'Day 1', d1dow: 'Mon', d4: 'Day 4', d4dow: 'Thu', d8: 'Day 8', d8dow: 'Mon', d12: 'Day 12', d12dow: 'Fri',
+    d13: 'Day 13', d13dow: 'Release', d17: 'Day 17', d17dow: 'Tue', d22: 'Day 22', d22dow: 'Mon', d28: 'Day 28', d28dow: 'Mon',
+    w1p1Title: '"Chapter __ is coming" Teaser Carousel (3 slides)',
+    w1p1Desc: 'Slide 1: Chapter number + mood color typography<br>Slide 2: 3 chapter keywords (e.g., "Betrayal", "Storm", "Promise")<br>Slide 3: "Every 13th, a new page opens" + bookofvictor.world',
+    w1p1Asset: 'Assets: Typography + color graphics (no illustration needed)',
+    w1p2Title: '"Lore in 60 Seconds" — Previous Chapter Recap Reels',
+    w1p2Desc: '60-second recap of last chapter story (existing illustration slides + subtitles + BGM)<br>End with "And the next page is..." cliffhanger<br>Context for new followers + refresher for existing fans',
+    w1p2Asset: 'Assets: Existing illustrations + music (reuse, no new production)',
+    w2p1Title: '15-Second Music Highlight — New Track Teaser',
+    w2p1Desc: 'Most impactful 15 seconds of this chapter\'s track + waveform visual<br>SD illustration motion (zoom in/out) overlay possible<br>"Full version on the 13th" subtitle',
+    w2p1Asset: 'Assets: Completed music (from day 5) + SD illustration (day 10)',
+    w2p2Title: '"TOMORROW" — D-1 Countdown',
+    w2p2Desc: '4 SD illustrations combined in one frame + list of 4 song titles<br>"Tomorrow, everything opens" — one-line copy<br>Final push before release — peak anticipation moment',
+    w2p2Asset: 'Assets: 4 SD illustrations combined + typography',
+    w3p1Title: '"OUT NOW" Release Announcement Carousel (3 slides)',
+    w3p1Desc: 'Slide 1: Chapter key visual + "OUT NOW"<br>Slide 2: Music streaming link + game download link<br>Slide 3: MV YouTube link + "Listen now"<br>Music / Game / MV simultaneous release — all channels at once',
+    w3p1Asset: 'Assets: Key visual + link graphics',
+    w3p2Title: 'MV Highlight + Full Scene Illustration Reels',
+    w3p2Desc: 'Best 30 seconds of MV + full scene illustration slides<br>Or gameplay highlight (Hard mode clear footage)<br>"Which track is your favorite?" — encourage comments',
+    w3p2Asset: 'Assets: MV video clip + Hard full scene illustration',
+    w4p1Title: 'Boost Event Launch — Interactive Content',
+    w4p1Desc: 'Choose 1 format each month:<br><br><strong>A. Fan Art Challenge</strong> — Hashtag participation, winner repost + in-game reward<br><strong>B. Perfect Challenge</strong> — Share perfect-play video of specific section<br><strong>C. Favorite Song Tournament</strong> — 4-song bracket vote (carousel)<br><strong>D. Limited In-Game Event</strong> — Time-limited reward announcement',
+    w4p1Asset: 'Assets: Event banner graphic (reusable template)',
+    w4p2Title: '"Next Page..." — Next Chapter Teaser',
+    w4p2Desc: '1 minimal image hinting at next chapter mood<br>Color + one keyword only — no specific details, just atmosphere<br>Natural connection to next month\'s Phase A Day 1 post',
+    w4p2Asset: 'Assets: Color graphic + typography (simple production)',
+    secSummary: 'Monthly Summary', summaryBadge: '8 Posts / Month',
+    sumHead: ['Week','Phase','Period','Posts','Content'],
+    sumRows: [
+      ['Week 1','A Pre-Launch','Day 1 — 6','2','Chapter teaser carousel + Lore recap reels'],
+      ['Week 2','A Pre-Launch','Day 7 — 12','2','Music teaser reels + D-1 countdown feed'],
+      ['Week 3','B Post-Launch','Day 13 — 19','2','OUT NOW carousel + MV/gameplay reels'],
+      ['Week 4','C Event','Day 20 — End','2','Boost event + Next chapter teaser'],
+    ],
+    sumTotal: ['Monthly Total','','','8','Carousel 2 + Reels 3 + Feed 2 + Event 1'],
+    secBank: 'Content Idea Bank', bankBadge: 'Reusable',
+    tips: [
+      { title: 'Phase A — Alternative Content', color: 'var(--orange)', body: '<strong>Silhouette Quiz</strong> — Reveal only character silhouette<br><strong>Color Palette Reveal</strong> — 4 gradient colors of the chapter<br><strong>Quote Card</strong> — 1 key dialogue line typography<br><strong>Studio Timelapse</strong> — 15-second composing/drawing process<br><strong>Reverse Music</strong> — Play track backwards, "Guess the song?"' },
+      { title: 'Phase B — Alternative Content', color: 'var(--red)', body: '<strong>Difficulty Comparison</strong> — Easy/Normal/Hard same song reels<br><strong>Rough vs Final</strong> — Illustration Before/After carousel<br><strong>Easter Egg Breakdown</strong> — Hidden details in MV explained<br><strong>First Reaction</strong> — Team/friend listening reaction<br><strong>Story Unlock Hint</strong> — Tease hidden conditions' },
+      { title: 'Phase C — Alternative Events', color: 'var(--accent)', body: '<strong>Fan Art Repost</strong> — Feature fan work + tag artist<br><strong>Character Birthday</strong> — In-lore anniversary event<br><strong>Q&amp;A</strong> — "Ask anything about the lore"<br><strong>Community Poll</strong> — Vote on next chapter direction<br><strong>Behind the Scenes Carousel</strong> — 3-slide production process' },
+      { title: 'Anytime — Gap Fillers', color: 'var(--text)', body: '<strong>Iconic Quotes Series</strong> — Best quotes from all chapters<br><strong>Character Profile Cards</strong> — MBTI, hobbies, personality<br><strong>Playlist</strong> — "Victor OST for this mood"<br><strong>Victor in Numbers</strong> — Total songs, characters, chapters<br><strong>Memes</strong> — Character-based relatable content' },
+    ],
+    secTiming: 'Asset Availability Timeline', timingBadge: 'Production Sync',
+    timingHead: ['Date','Available Assets','Usable Posts'],
+    timingRows: [
+      ['Day 1+','Typography, colors, existing illustrations','All of Week 1 (no new production needed)'],
+      ['Day 5+','Completed music tracks','Week 2 music teaser reels'],
+      ['Day 10','4 SD illustrations completed','Week 2 D-1 feed (SD compilation)'],
+      ['Day 13','Music + MV + Game simultaneous release','Week 3 OUT NOW carousel'],
+      ['Day 20','All full scene illustrations completed','Week 3 MV/full scene reels'],
+      ['Day 20+','Event graphics (template)','Week 4 event + teaser'],
+    ],
+  },
+};
+
+function buildSummary(lang) {
+  const d = T[lang];
+  const phaseColors = ['var(--orange)','var(--orange)','var(--red)','var(--accent)'];
+  let html = '<div class="section-head"><h2>' + d.secSummary + '</h2><span class="badge badge-neutral">' + d.summaryBadge + '</span></div>';
+  html += '<div class="sum-wrap"><table class="sum-table"><thead><tr>';
+  d.sumHead.forEach(h => html += '<th>' + h + '</th>');
+  html += '</tr></thead><tbody>';
+  d.sumRows.forEach((r, i) => {
+    const bg = i === 2 ? ' style="background:#fef8f8;"' : '';
+    html += '<tr' + bg + '>';
+    r.forEach((c, j) => {
+      if (j === 0) html += '<td class="hl">' + c + '</td>';
+      else if (j === 1) html += '<td style="color:' + phaseColors[i] + '; font-weight:600;">' + c + '</td>';
+      else if (j === 3 && i === 2) html += '<td class="ct">' + c + '</td>';
+      else if (j === 3) html += '<td class="hl">' + c + '</td>';
+      else html += '<td>' + c + '</td>';
+    });
+    html += '</tr>';
+  });
+  html += '<tr style="background:var(--surface); font-weight:600;">';
+  d.sumTotal.forEach((c, j) => {
+    if (j === 0) html += '<td class="hl" colspan="3">' + c + '</td>';
+    else if (j <= 2) return;
+    else if (j === 3) html += '<td class="ct">' + c + '</td>';
+    else html += '<td>' + c + '</td>';
+  });
+  html += '</tr></tbody></table></div>';
+  return html;
+}
+
+function buildTips(lang) {
+  return T[lang].tips.map(t =>
+    '<div class="tip-card"><div class="tip-title" style="color:' + t.color + '">' + t.title + '</div><div class="tip-body">' + t.body + '</div></div>'
+  ).join('');
+}
+
+function buildTiming(lang) {
+  const d = T[lang];
+  let html = '<table class="sum-table"><thead><tr>';
+  d.timingHead.forEach(h => html += '<th>' + h + '</th>');
+  html += '</tr></thead><tbody>';
+  d.timingRows.forEach((r, i) => {
+    const bg = i === 3 ? ' style="background:#fef8f8;"' : '';
+    html += '<tr' + bg + '>';
+    r.forEach((c, j) => {
+      if (j === 0 && i === 3) html += '<td class="ct">' + c + '</td>';
+      else if (j === 0) html += '<td class="hl">' + c + '</td>';
+      else html += '<td>' + c + '</td>';
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  return html;
+}
+
+function setLang(lang) {
+  var d = T[lang];
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.toggle('active', b.textContent.trim() === ({ko:'한국어', vi:'Tiếng Việt', en:'English'})[lang]);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (d[key] !== undefined) el.innerHTML = d[key];
+  });
+  document.getElementById('summarySection').innerHTML = buildSummary(lang);
+  document.getElementById('tipGrid').innerHTML = buildTips(lang);
+  document.getElementById('timingTable').innerHTML = buildTiming(lang);
+}
+
+setLang('ko');
+</script>
+</body>
+</html>
